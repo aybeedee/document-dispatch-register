@@ -5,10 +5,30 @@ import pic from './assets/profile.png';
 import logo from './assets/logo.png';
 import {nanoid} from 'nanoid';
 
-const applications = [];
+const applications: any = [
+
+  {
+    docID: nanoid(),
+    docType: "Course Withdrawal",
+    applicantName: "Asim Zahid",
+    applicantID: "19I-0432",
+    department: "EE",
+    applicationDate: "2023-04-24",
+    description: "Need to withdraw programming course urgently."
+  },
+
+  {
+    docID: nanoid(),
+    docType: "Disciplinary Fine",
+    applicantName: "Rohail Zabid",
+    applicantID: "21I-1340",
+    department: "Computing",
+    applicationDate: "2023-03-17",
+    description: "Submitted fine amount with requied documents."
+  }
+];
 
 export default function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <div>
@@ -63,7 +83,7 @@ function SubmitApplication() {
     docID: nanoid(),
     docType: "",
     applicantName: "",
-    applicantId: "",
+    applicantID: "",
     department: "",
     applicationDate: "",
     description: ""
@@ -72,7 +92,7 @@ function SubmitApplication() {
   const navigate = useNavigate()
 
   const handleChange = (e: any) => {
-    console.log(e)
+
     setApplication(prev => ({...prev, [e.target.name]: e.target.value}));
   };
 
@@ -84,6 +104,7 @@ function SubmitApplication() {
 
         await applications.push(application);
         navigate("/");
+        console.log(applications);
 
     } catch(err){
 
@@ -92,37 +113,37 @@ function SubmitApplication() {
   }
   
   return (
-    <div className="home">
+    <div className="submit-application">
+      <h1>Create Application</h1>
       <div className = "form">
-            <h1>Create Application</h1>
-            <label>Document Type</label>
-            <select onChange = {handleChange} name = "docType">
-              <option value = "Course Withdrawal">Course Withdrawal</option>
-              <option value = "Absence Justification">Absence Justification</option>
-              <option value = "Teacher Leave">Teacher Leave</option>
-              <option value = "Grade Change">Grade Change</option>
-              <option value = "Disciplinary Fine">Disciplinary Fine</option>
-              <option value = "Other">Other</option>
-            </select>
-            <label>Applicant Name</label>
-            <input type = "text" placeholder = "Applicant Name" onChange = {handleChange} name = "applicantName"/>
-            <label>Applicant ID</label>
-            <input type = "text" placeholder = "Applicant ID" onChange = {handleChange} name = "applicantId"/>
-            <label>Department</label>
-            <select onChange = {handleChange} name = "department">
-              <option value = "Accounts">Accounts</option>
-              <option value = "Admin">Admin</option>
-              <option value = "HR">HR</option>
-              <option value = "Computing">Computing</option>
-              <option value = "EE">EE</option>
-              <option value = "FSM">FSM</option>
-            </select>
-            <label>Application Date</label>
-            <input id = "applicationDate" type = "date" onChange = {handleChange} name = "applicationDate"/>
-            <label>Description</label>
-            <textarea name = "description" rows={4} cols={50}>Describe any details of the application here</textarea>
-            <button onClick = {handleClick}>Admit</button>
-        </div>
+        <label>Document Type</label>
+        <select onChange = {handleChange} name = "docType">
+          <option value = "Course Withdrawal">Course Withdrawal</option>
+          <option value = "Absence Justification">Absence Justification</option>
+          <option value = "Teacher Leave">Teacher Leave</option>
+          <option value = "Grade Change">Grade Change</option>
+          <option value = "Disciplinary Fine">Disciplinary Fine</option>
+          <option value = "Other">Other</option>
+        </select>
+        <label>Applicant Name</label>
+        <input type = "text" placeholder = "Applicant Name" onChange = {handleChange} name = "applicantName"/>
+        <label>Applicant ID</label>
+        <input type = "text" placeholder = "Applicant ID" onChange = {handleChange} name = "applicantID"/>
+        <label>Department</label>
+        <select onChange = {handleChange} name = "department">
+          <option value = "Accounts">Accounts</option>
+          <option value = "Admin">Admin</option>
+          <option value = "HR">HR</option>
+          <option value = "Computing">Computing</option>
+          <option value = "EE">EE</option>
+          <option value = "FSM">FSM</option>
+        </select>
+        <label>Application Date</label>
+        <input id = "applicationDate" type = "date" onChange = {handleChange} name = "applicationDate"/>
+        <label>Description</label>
+        <textarea name = "description" rows={4} cols={50} defaultValue="Describe any details of the application here." onChange = {handleChange}/>
+        <button onClick = {handleClick}>Submit</button>
+      </div>
     </div>
   );
 }
@@ -130,10 +151,43 @@ function SubmitApplication() {
 function PendingApplications() {
   return (
     <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
+      <div className="content">
+          <div className="container">
+              <h2>Applications</h2>
+              <div>
+                  <table className="table custom-table">
+                  <thead>
+                      <tr>  
+                      <th scope="col">Document Type</th>
+                      <th scope="col">Department</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Applicant ID</th>
+                      <th scope="col">Submission Date</th>
+                      <th scope="col">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {
+                          applications.map((application: any) => (
+                              <tr key={application.docID}>
+                                  <td>{application.docType}</td>
+                                  <td>{application.department}</td>
+                                  <td>{application.applicantName}</td>
+                                  <td>{application.applicantID}</td>
+                                  <td>{application.applicationDate}</td>
+                                  <td>
+                                  <button><Link to = {`/track/${application.docID}`}>Track</Link></button>
+                                  <button><Link to = {`/update/${application.docID}`}>Update</Link></button>
+                                  </td>
+                                  <td colSpan={100}></td>
+                              </tr>
+                          ))
+                      }
+                  </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
     </div>
   );
 }
