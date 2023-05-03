@@ -1,14 +1,95 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0px;
+  padding: 0px;
   text-align: center;
 }
 
-.card {
-  padding: 2em;
+.test {
+
+  border-style: solid;
+  border-width: 1px; 
 }
 
-.read-the-docs {
-  color: #888;
+.logo {
+
+  align-items: center;
+  text-align: center;
+  margin: auto auto auto 5px;
+}
+
+.welcome {
+
+  align-items: center;
+  text-align: center;
+  margin: auto 10px auto 5px;
+}
+
+.layout {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbar {
+
+  height: 50px;
+  position: relative;
+  margin-top: 0px;
+  margin-bottom: auto;
+  padding: 0px;
+  width: 100%;
+  top: 0px;
+  background-color: #1a1a1a;
+  text-align: center;
+
+  display: flex;
+  flex-direction: row;
+
+}
+
+.footer {
+
+  height: 40px;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: 0px;
+  padding: 0px;
+  width: 100%;
+  top: auto;
+  bottom: 0px;
+  background-color: #1a1a1a;
+}
+
+.home {
+  height: 175px;
+  width: 100%;
+  position: relative;
+  padding:0;
+  margin:0;
+
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.homeButtons {
+
+  width: 300px;
+  height: 75px;
+  size: 5px;
+  font-size: larger;
+}
+
+.profilePic {
+
+  margin: auto 3px auto auto;
+  border-radius: 50%;
+  padding: 0px;
+  width: 35px;
+  height: 32px;
 }
