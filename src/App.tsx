@@ -1,5 +1,5 @@
-import {Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom';
-import {useState, useMemo} from 'react';
+import {Routes, Route, Link, Outlet, useNavigate, useLocation} from 'react-router-dom';
+import {useState} from 'react';
 import './App.css';
 import pic from './assets/profile.png';
 import logo from './assets/logo.png';
@@ -14,7 +14,8 @@ const applications: any = [
     applicantID: "19I-0432",
     department: "EE",
     applicationDate: "2023-04-24",
-    description: "Need to withdraw programming course urgently."
+    description: "Need to withdraw programming course urgently.",
+    authorityPosition: 0
   },
 
   {
@@ -24,7 +25,8 @@ const applications: any = [
     applicantID: "21I-1340",
     department: "Computing",
     applicationDate: "2023-03-17",
-    description: "Submitted fine amount with requied documents."
+    description: "Submitted fine amount with requied documents.",
+    authorityPosition: 0
   },
 
   {
@@ -34,7 +36,8 @@ const applications: any = [
     applicantID: "20I-4534",
     department: "FSM",
     applicationDate: "2023-05-01",
-    description: "Application for change of grade."
+    description: "Application for change of grade.",
+    authorityPosition: 0
   },
 
   {
@@ -44,7 +47,8 @@ const applications: any = [
     applicantID: "E24352",
     department: "Computing",
     applicationDate: "2023-01-04",
-    description: "Important Training Summit."
+    description: "Important Training Summit.",
+    authorityPosition: 0
   },
 
   {
@@ -54,7 +58,8 @@ const applications: any = [
     applicantID: "22I-2311",
     department: "FSM",
     applicationDate: "2023-04-17",
-    description: "Urgent."
+    description: "Urgent.",
+    authorityPosition: 0
   },
 
   {
@@ -64,14 +69,17 @@ const applications: any = [
     applicantID: "18I-0532",
     department: "Computing",
     applicationDate: "2023-05-09",
-    description: "Submitted fine amount."
+    description: "Submitted fine amount.",
+    authorityPosition: 0
   }
 ];
 
 const tracks: any = [
 
   {
+    trackID: nanoid(),
     title: "Course Withdrawal",
+    expectedDays: 6,
     authorities: [
       "Officer Saif Sheikh",
       "Coordinator Zubair Rahim",
@@ -80,7 +88,9 @@ const tracks: any = [
   },
 
   {
+    trackID: nanoid(),
     title: "Absence Justification",
+    expectedDays: 12,
     authorities: [
       "Officer Saif Sheikh",
       "HOD Tanveer Rahim"
@@ -88,7 +98,9 @@ const tracks: any = [
   },
 
   {
+    trackID: nanoid(),
     title: "Teacher Leave",
+    expectedDays: 5,
     authorities: [
       "Officer Saif Sheikh",
       "HOD Zubair Rahim",
@@ -97,7 +109,9 @@ const tracks: any = [
   },
 
   {
+    trackID: nanoid(),
     title: "Grade Change",
+    expectedDays: 14,
     authorities: [
       "Officer Saif Sheikh",
       "Coordinator Rehman Ullah",
@@ -106,7 +120,9 @@ const tracks: any = [
   },
 
   {
+    trackID: nanoid(),
     title: "Disciplinary Fine",
+    expectedDays: 7,
     authorities: [
       "Officer Saif Sheikh",
       "DC-Incharge Yasir Ali",
@@ -124,6 +140,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="SubmitApplication" element={<SubmitApplication />} />
           <Route path="PendingApplications" element={<PendingApplications />} />
+          <Route path="Track" element={<Track />} />
         </Route>
       </Routes>
     </div>
@@ -174,7 +191,8 @@ function SubmitApplication() {
     department: "",
     applicationDate: "",
     description: "",
-    attachment: null
+    attachment: null,
+    authorityPosition: 0
   });
 
   const navigate = useNavigate()
@@ -392,7 +410,7 @@ function PendingApplications() {
                                   <td>{application.applicantID}</td>
                                   <td>{application.applicationDate}</td>
                                   <td>
-                                  <button><Link to = {`/track/${application.docID}`}>Track</Link></button>
+                                  <button><Link to = {`/Track/?docID=${application.docID}`}>Track</Link></button>
                                   <button><Link to = {`/update/${application.docID}`}>Update</Link></button>
                                   </td>
                                   <td colSpan={100}></td>
@@ -404,6 +422,26 @@ function PendingApplications() {
               </div>
           </div>
       </div>
+    </div>
+  );
+}
+
+function Track() {
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const documentID = queryParams.get("docID");
+  const application = applications.find((application: any) => (application.docID === documentID))
+  const track = tracks.find((track: any) => (track.title === application.docType))
+
+  return (
+    <div>
+      <h1>Track</h1>
+      <p>{application.applicantID}</p>
+
+      <p>{application.applicantName}</p>
+      <p>{track.title}</p>
+      <p>{application.docType}</p>
     </div>
   );
 }
