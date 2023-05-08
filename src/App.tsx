@@ -173,7 +173,8 @@ function SubmitApplication() {
     applicantID: "",
     department: "",
     applicationDate: "",
-    description: ""
+    description: "",
+    attachment: null
   });
 
   const navigate = useNavigate()
@@ -229,6 +230,7 @@ function SubmitApplication() {
         <input id = "applicationDate" type = "date" onChange = {handleChange} name = "applicationDate"/>
         <label>Description</label>
         <textarea name = "description" rows={4} cols={50} defaultValue="Describe any details of the application here." onChange = {handleChange}/>
+        <input type="file" id="myFile" name="attachment"/>
         <button onClick = {handleClick}>Submit</button>
       </div>
     </div>
