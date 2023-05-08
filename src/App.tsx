@@ -3,6 +3,8 @@ import {useState} from 'react';
 import './App.css';
 import pic from './assets/profile.png';
 import logo from './assets/logo.png';
+import tick from './assets/tick.svg';
+import pending from './assets/pending.png';
 import {nanoid} from 'nanoid';
 
 const applications: any = [
@@ -26,7 +28,7 @@ const applications: any = [
     department: "Computing",
     applicationDate: "2023-03-17",
     description: "Submitted fine amount with requied documents.",
-    authorityPosition: 0
+    authorityPosition: 1
   },
 
   {
@@ -37,7 +39,7 @@ const applications: any = [
     department: "FSM",
     applicationDate: "2023-05-01",
     description: "Application for change of grade.",
-    authorityPosition: 0
+    authorityPosition: 3
   },
 
   {
@@ -48,7 +50,7 @@ const applications: any = [
     department: "Computing",
     applicationDate: "2023-01-04",
     description: "Important Training Summit.",
-    authorityPosition: 0
+    authorityPosition: 2
   },
 
   {
@@ -70,7 +72,7 @@ const applications: any = [
     department: "Computing",
     applicationDate: "2023-05-09",
     description: "Submitted fine amount.",
-    authorityPosition: 0
+    authorityPosition: 3
   }
 ];
 
@@ -433,15 +435,41 @@ function Track() {
   const documentID = queryParams.get("docID");
   const application = applications.find((application: any) => (application.docID === documentID))
   const track = tracks.find((track: any) => (track.title === application.docType))
-
+  
   return (
-    <div>
+    <div className = "trackDiv">
       <h1>Track</h1>
-      <p>{application.applicantID}</p>
-
-      <p>{application.applicantName}</p>
-      <p>{track.title}</p>
-      <p>{application.docType}</p>
+      <div className = "listBlock">
+        <div className = "listValues">
+          <h3>Track Title:</h3>
+          <p>{track.title}</p>
+        </div>
+        <div className = "listValues">
+          <h3>Document ID:</h3>
+          <p>{application.docID}</p>
+        </div>
+        <div className = "listValues">
+          <h3>Track ID:</h3>
+          <p>{track.trackID}</p>
+        </div>
+        <div className = "listValues">
+          <h3>Expected Days:</h3>
+          <p>{track.expectedDays} Days</p>
+        </div>
+      </div>
+      <div className = "trackAuthorities">
+        {
+          track.authorities.map((authority: string, index: number) => (
+            <div className = "trackAuthority">
+              <h3>Authority:</h3>
+              <h4>{authority}</h4>
+              <img className = "statusIcon" src = {(index < (application.authorityPosition)) ? tick : pending}/>
+              <p>{(index < (application.authorityPosition)) ? "approved" : "pending"}</p>
+              <br/>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
