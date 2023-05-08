@@ -514,3 +514,12 @@ input::placeholder {
 .table-responsive > .table-bordered {
   border: 0;
 }
+
+.searchParams {
+  
+  display: flex;
+  width: 60%;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: auto;
+}
