@@ -65,7 +65,7 @@
 }
 
 .home {
-  height: 140px;
+  height: 240px;
   width: 100%;
   position: relative;
   padding:0;
@@ -548,11 +548,6 @@ input::placeholder {
 }
 
 .trackAuthorities {
-
-
-}
-
-h3 {
 
 
 }

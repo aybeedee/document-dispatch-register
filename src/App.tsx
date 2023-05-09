@@ -7,6 +7,17 @@ import tick from './assets/tick.svg';
 import pending from './assets/pending.png';
 import {nanoid} from 'nanoid';
 
+const authorities: any = [
+
+  "Officer Saif Sheikh",
+  "Coordinator Zubair Rahim",
+  "HOD Rahman Zahid",
+  "HOD Tanveer Rahim",
+  "HOS Talha Fazal",
+  "Coordinator Rehman Ullah",
+  "DC-Incharge Yasir Ali"
+]
+
 const applications: any = [
 
   {
@@ -143,6 +154,8 @@ export default function App() {
           <Route path="SubmitApplication" element={<SubmitApplication />} />
           <Route path="PendingApplications" element={<PendingApplications />} />
           <Route path="Track" element={<Track />} />
+          <Route path="ViewTracks" element={<ViewTracks />} />
+          <Route path="CreateTrack" element={<CreateTrack />} />
         </Route>
       </Routes>
     </div>
@@ -177,6 +190,12 @@ function Home() {
       </button>
       <button className = "homeButtons">
       <Link to="/SubmitApplication">Submit Application</Link>
+      </button>
+      <button className = "homeButtons">
+      <Link to="/ViewTracks">View Tracks</Link>
+      </button>
+      <button className = "homeButtons">
+      <Link to="/CreateTrack">Create Track</Link>
       </button>
     </div>
   );
@@ -423,6 +442,109 @@ function PendingApplications() {
                   </table>
               </div>
           </div>
+      </div>
+    </div>
+  );
+}
+
+function ViewTracks() {
+
+  return (
+    <div>
+      <div className="content">
+          <div className="container">
+              <h2>Tracks</h2>
+              <div>
+                  <table className="table custom-table">
+                  <thead>
+                      <tr>  
+                        <th scope="col">Track Title</th>
+                        <th scope="col">Expected Duration</th>
+                        <th scope="col">Authorities</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {
+                          tracks.map((track: any) => (
+                              <tr key={track.trackID}>
+                                  <td>{track.title}</td>
+                                  <td>{track.expectedDays}</td>
+                                  <td>{track.authorities.map(
+                                    (authority: string) =>
+                                      (
+                                        <p>{authority} </p>
+                                      )
+                                  )}</td>
+                                  <td colSpan={100}></td>
+                              </tr>
+                          ))
+                      }
+                  </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+    </div>
+  );
+}
+
+function CreateTrack() {
+
+  const [track, setTrack] = useState({
+
+    trackID: nanoid(),
+    title: "",
+    expectedDays: 0,
+    authorities: []
+  });
+
+  const navigate = useNavigate()
+
+  const handleChange = (e: any) => {
+
+    setTrack(prev => ({...prev, [e.target.name]: e.target.value}));
+  };
+
+  const handleClick = async (e: any) => {
+
+    e.preventDefault()
+
+    try{
+
+        await tracks.push(track);
+        await
+        navigate("/");
+
+    } catch(err){
+
+        console.log(err)
+    }
+  }
+  
+  return (
+    <div className="submit-application">
+      <h1>Create Track</h1>
+      <div className = "form">
+        {/* <div> */}
+          <label>Track Title</label>
+          <input type = "text" placeholder = "Track Title" onChange = {handleChange} name = "title"/>
+          <label>Expected Das</label>
+          <input type = "number" placeholder = "Expected Days" onChange = {handleChange} name = "expectedDays"/>
+        {/* </div> */}
+        {/* <div>
+          {
+            authorities.map(
+              (authority: any) =>
+              (
+                <label>
+                  <input type = "checkbox" checked = {value} onChange = {}/>
+                  {authority}
+                </label>
+              )
+            )
+          }
+        </div> */}
+        <button onClick = {handleClick}>Submit</button>
       </div>
     </div>
   );
