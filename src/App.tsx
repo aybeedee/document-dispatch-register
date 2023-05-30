@@ -7,16 +7,16 @@ import tick from './assets/tick.svg';
 import pending from './assets/pending.png';
 import {nanoid} from 'nanoid';
 
-const authorities: any = [
+// const authorities: any = [
 
-  "Officer Saif Sheikh",
-  "Coordinator Zubair Rahim",
-  "HOD Rahman Zahid",
-  "HOD Tanveer Rahim",
-  "HOS Talha Fazal",
-  "Coordinator Rehman Ullah",
-  "DC-Incharge Yasir Ali"
-]
+//   "Officer Saif Sheikh",
+//   "Coordinator Zubair Rahim",
+//   "HOD Rahman Zahid",
+//   "HOD Tanveer Rahim",
+//   "HOS Talha Fazal",
+//   "Coordinator Rehman Ullah",
+//   "DC-Incharge Yasir Ali"
+// ]
 
 const applications: any = [
 
