@@ -5,8 +5,11 @@ View it live at https://document-dispatcher.netlify.app
 
 To set up locally:
 
-`git clone`
 
-`npm install`
+```bash
+git clone
 
-`npm run dev`
+npm install
+
+npm run dev
+```
